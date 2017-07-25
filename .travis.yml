@@ -9,8 +9,9 @@ install:
   - npm install hexo-cli -g
   - npm install
 script:
-  - hexo deploy
+  - hexo generate
 deploy:
+  local_dir: public
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
