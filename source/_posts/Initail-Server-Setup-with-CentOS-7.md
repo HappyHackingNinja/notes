@@ -45,7 +45,7 @@ ssh-keygen -t ed25519 -N "" -f /etc/ssh/ssh_host_ed25519_key
 新增一名使用者並給與 `sudo` 的權限（透過加入 `wheel` 群組）
 
 ```sh
-add user -G wheel -c "Demo User" demo
+adduser -G wheel -c "Demo User" demo
 ```
 
 設置新使用者的密碼
@@ -74,7 +74,7 @@ PermitRootLogin no
 systemctl restart sshd.service
 ```
 
-## 修改 SSH Port
+## 確認防火牆設定
 
 確認 `Firewalld` 是否正在運行
 
