@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/notes/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/notes/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/notes/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/notes/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Initial Server Setup with CentOS 7趁者 Black Friday 特價入手了 VPS 主機，在此記錄基本的配置路程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Initial Server Setup with CentOS 7">
+<meta property="og:url" content="http://happyhacking.ninja/notes/2017/11/25/Initail-Server-Setup-with-CentOS-7/index.html">
+<meta property="og:site_name" content="Happy Hacking Notes">
+<meta property="og:description" content="Initial Server Setup with CentOS 7趁者 Black Friday 特價入手了 VPS 主機，在此記錄基本的配置路程">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-11-29T05:46:19.924Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Initial Server Setup with CentOS 7">
+<meta name="twitter:description" content="Initial Server Setup with CentOS 7趁者 Black Friday 特價入手了 VPS 主機，在此記錄基本的配置路程">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/notes/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://happyhacking.ninja/notes/2017/11/25/Initail-Server-Setup-with-CentOS-7/"/>
+
+
+
+
+
+  <title>Initial Server Setup with CentOS 7 | Happy Hacking Notes</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/notes/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Happy Hacking Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/notes/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/notes/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/notes/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://happyhacking.ninja/notes/notes/2017/11/25/Initail-Server-Setup-with-CentOS-7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kehao Chen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/notes/image/ninja.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Happy Hacking Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Initial Server Setup with CentOS 7</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-25T18:00:00+00:00">
+                2017-11-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Initial-Server-Setup-with-CentOS-7"><a href="#Initial-Server-Setup-with-CentOS-7" class="headerlink" title="Initial Server Setup with CentOS 7"></a>Initial Server Setup with CentOS 7</h1><p>趁者 Black Friday 特價入手了 VPS 主機，在此記錄基本的配置路程</p>
+<a id="more"></a>
+<h2 id="錯誤的磁碟空間（SolusVM）"><a href="#錯誤的磁碟空間（SolusVM）" class="headerlink" title="錯誤的磁碟空間（SolusVM）"></a>錯誤的磁碟空間（SolusVM）</h2><p>如果你的供應商使用的是 SolusVM 的 VPS 管理方案，使用 CentOS KVM template 可能會遇到<a href="https://forum.solusvm.com/topic/6643-kvm-templates/" target="_blank" rel="noopener"> disk size 錯誤的問題</a>，必需透過 <code>resize2fs</code> 來獲取正確的空間分配</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">resize2fs /dev/sda1</div></pre></td></tr></table></figure>
+<h2 id="修改-root-密碼"><a href="#修改-root-密碼" class="headerlink" title="修改 root 密碼"></a>修改 root 密碼</h2><p>以 root 的身份使用 <code>passwd</code> 指令即可更改密碼</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">passwd</div></pre></td></tr></table></figure>
+<h2 id="重新產生-SSH-Host-keys"><a href="#重新產生-SSH-Host-keys" class="headerlink" title="重新產生 SSH Host keys"></a>重新產生 SSH Host keys</h2><p>移除既存的 SSH Host Keys</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm -f /etc/ssh/ssh_host_*</div></pre></td></tr></table></figure>
+<p>透過 <code>ssh-keygen</code> 重新自動產生</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -A</div></pre></td></tr></table></figure>
+<p>如果無法透過 <code>-A</code> 參數自動生成，亦可透過以下指令產生</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t dsa -N <span class="string">""</span> -f /etc/ssh/ssh_host_dsa_key</div><div class="line">ssh-keygen -t rsa -N <span class="string">""</span> -f /etc/ssh/ssh_host_rsa_key</div><div class="line">ssh-keygen -t ecdsa -N <span class="string">""</span> -f /etc/ssh/ssh_host_ecdsa_key</div><div class="line">ssh-keygen -t ed25519 -N <span class="string">""</span> -f /etc/ssh/ssh_host_ed25519_key</div></pre></td></tr></table></figure>
+<h2 id="新增使用者"><a href="#新增使用者" class="headerlink" title="新增使用者"></a>新增使用者</h2><p>新增一名使用者並給與 <code>sudo</code> 的權限（透過加入 <code>wheel</code> 群組）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">adduser -G wheel -c <span class="string">"Demo User"</span> demo</div></pre></td></tr></table></figure>
+<p>設置新使用者的密碼</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">passwd demo</div></pre></td></tr></table></figure>
+<h2 id="禁止-root-使用-ssh-登入"><a href="#禁止-root-使用-ssh-登入" class="headerlink" title="禁止 root 使用 ssh 登入"></a>禁止 root 使用 ssh 登入</h2><p>使用文本編輯器開啟 <code>/etc/ssh/sshd_config</code>，在此使用 Vim</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/ssh/sshd_config</div></pre></td></tr></table></figure>
+<p>將選項 <code>PermitRootLogin</code> 設置為 <code>no</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">PermitRootLogin</span> <span class="literal">no</span></div></pre></td></tr></table></figure>
+<p>重新啟動 <code>sshd</code> 服務</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl restart sshd.service</div></pre></td></tr></table></figure>
+<h2 id="確認防火牆是否運作"><a href="#確認防火牆是否運作" class="headerlink" title="確認防火牆是否運作"></a>確認防火牆是否運作</h2><p>確認 <code>Firewalld</code> 是否正在運行</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl status firewalld</div></pre></td></tr></table></figure>
+<p>確認當前 <code>Firewalld</code> 的設定</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">firewall-cmd  --list-all --permanent</div></pre></td></tr></table></figure>
+<h2 id="變更-SSH-通訊埠"><a href="#變更-SSH-通訊埠" class="headerlink" title="變更 SSH 通訊埠"></a>變更 SSH 通訊埠</h2><p>基於安全性考慮，將 SSH 通訊埠設為非預設的 22，尤其是使用密碼登入而非 SSH 金鑰</p>
+<p>使用文本編輯器開啟 <code>/etc/ssh/sshd_config</code>，在此使用 Vim</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/ssh/sshd_config</div></pre></td></tr></table></figure>
+<p>將選項 <code>Port</code> 設置為非 22 的值，避免衝突可參考 <a href="https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers" target="_blank" rel="noopener">List of TCP and UDP port numbers</a></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">Port</span> <span class="number">1337</span></div></pre></td></tr></table></figure>
+<p>在 <a href="https://wiki.centos.org/zh-tw/HowTos/SELinux" target="_blank" rel="noopener">SELinux</a> 預設的 <code>Enforcing</code> 模式下，可以<a href="https://wiki.centos.org/zh-tw/HowTos/SELinux#head-d2fe217dac7ca26c1bd517fb864b9b8809d6f5bf" target="_blank" rel="noopener">透過 <code>semanage</code> 新增連接埠</a></p>
+<p>如果出現 <code>semanage command not found</code> 錯誤，需先安裝 <code>policycoreutils-python</code> 套件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum -y install policycoreutils-python</div></pre></td></tr></table></figure>
+<p>於 <code>ssh_port_t</code> 類型中增加新設定的 SSH 通訊埠值</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">semanage port -a -t ssh_port_t -p tcp 1337</div></pre></td></tr></table></figure>
+<p><br>可以列出 SELinux 僅 <code>ssh_port_t</code> 類型可存取的通訊埠來檢查剛寫入的設定</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">semanage port -l | grep ssh_port_t</div></pre></td></tr></table></figure>
+<p>此外還需要將新設定的 SSH Port 加入到防火牆規則中</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --zone=public --add-port=1337/tcp</div></pre></td></tr></table></figure>
+<p>接著重新載入防火牆規則</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
+<p><br>重新啟動 <code>sshd</code> 服務</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl restart sshd.service</div></pre></td></tr></table></figure>
+<p>透過 <code>ss -tlnp</code> 確認 <code>sshd</code> 是否載入新的設定</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ss -tlnp | grep ssh</div></pre></td></tr></table></figure>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref."></a>Ref.</h2><ul>
+<li><a href="https://www.digitalocean.com/community/tutorial_series/new-centos-7-server-checklist" target="_blank" rel="noopener">DigitalOcean: New CentOS 7 Server Checklist</a></li>
+<li><a href="https://www.hkpug.net/2014/09/18/%E5%AE%89%E8%A3%9D-centos-7-%E5%BE%8C%E5%BF%85%E5%81%9A%E7%9A%84%E4%B8%83%E4%BB%B6%E4%BA%8B/" target="_blank" rel="noopener">安裝 CentOS 7 後必做的七件事</a></li>
+<li><a href="https://www.liberiangeek.net/2014/11/change-openssh-port-centos-7/" target="_blank" rel="noopener">How To Change OpenSSH Port On CentOS 7</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/notes/2017/07/25/Reboot/" rel="next" title="Reboot">
+                <i class="fa fa-chevron-left"></i> Reboot
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/notes/image/ninja.png"
+               alt="Kehao Chen" />
+          <p class="site-author-name" itemprop="name">Kehao Chen</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/notes/archives/">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Initial-Server-Setup-with-CentOS-7"><span class="nav-number">1.</span> <span class="nav-text">Initial Server Setup with CentOS 7</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#錯誤的磁碟空間（SolusVM）"><span class="nav-number">1.1.</span> <span class="nav-text">錯誤的磁碟空間（SolusVM）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改-root-密碼"><span class="nav-number">1.2.</span> <span class="nav-text">修改 root 密碼</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重新產生-SSH-Host-keys"><span class="nav-number">1.3.</span> <span class="nav-text">重新產生 SSH Host keys</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新增使用者"><span class="nav-number">1.4.</span> <span class="nav-text">新增使用者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#禁止-root-使用-ssh-登入"><span class="nav-number">1.5.</span> <span class="nav-text">禁止 root 使用 ssh 登入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#確認防火牆是否運作"><span class="nav-number">1.6.</span> <span class="nav-text">確認防火牆是否運作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#變更-SSH-通訊埠"><span class="nav-number">1.7.</span> <span class="nav-text">變更 SSH 通訊埠</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">1.8.</span> <span class="nav-text">Ref.</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kehao Chen</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/notes/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/notes/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/notes/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/notes/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/notes/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/notes/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/notes/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/notes/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/notes/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/notes/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/notes/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/notes/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/notes/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
