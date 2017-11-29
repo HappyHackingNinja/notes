@@ -8,6 +8,8 @@ tags:
 
 趁者 Black Friday 特價入手了 VPS 主機，在此記錄基本的配置路程
 
+<!--more-->
+
 ## 錯誤的磁碟空間（SolusVM）
 
 如果你的供應商使用的是 SolusVM 的 VPS 管理方案，使用 CentOS KVM template 可能會遇到[ disk size 錯誤的問題](https://forum.solusvm.com/topic/6643-kvm-templates/)，必需透過 `resize2fs` 來獲取正確的空間分配
